@@ -18,33 +18,27 @@ Mobile Mule fue originalmente diseñada para teléfonos ya antiguos, capaces de 
 
 En 2026 se considera obsoleta; **es mucho más eficiente usar la Web Interface desde el navegador del móvil**. Es por eso que he decidido crear estas plantillas.
 
-## Archivos y Propósito
+## Archivos
 
-### 📄 `eMulev50_0a.tmpl`
-Es una plantilla basada en el diseño clásico **eMuleXP**.
-- **Estilo**: Mantiene la estética tradicional y familiar de las versiones clásicas de eMule (v0.50a).
-- **Propósito**: Sirve como opción de respaldo para asegurar compatibilidad total con instalaciones de eMule oficiales (las más antiguas).
-
-![eMulev50_0a.tmpl](eMulev50_0a.png)
-
-### 📄 `eMulev0_70b.tmpl`
-Es la **versión modernizada** diseñada para eMule v0.70b Community Edition.
+### 📄 `Modern_eMule.tmpl`
 
 - **Tecnologías**: Utiliza Tailwind CSS, Google Fonts (Inter y JetBrains Mono) y efectos de glassmorphism.
 - **Características**: Totalmente responsive (adaptable a móviles y tablets), modo oscuro profundo, animaciones sutiles y una disposición de elementos optimizada para la gestión remota.
 - **Propósito**: Proporcionar una interfaz de vanguardia para los usuarios de la versión más reciente de la comunidad.
 
-![eMulev0_70b.tmpl](eMulev0_70b.png)
+![alt text](image-5.png)
 
 ## Configuración
 
 1. Localiza la carpeta de instalación de tu eMule (normalmente en `C:\Program Files\eMule\config` o donde se guarden los archivos del servidor web).
 2. Haz una copia de seguridad de tu archivo `eMule.tmpl` actual (por ejemplo, `eMule_backup.tmpl`).
-3. Copia uno de los archivos de este repo (ej. `eMulev0_70b.tmpl`) a esa carpeta.
-4. Renombra el archivo elegido a `eMule.tmpl`.
+3. Copia el archivo de este repositorio (ej. `Modern_eMule.tmpl`) a esa carpeta.
+4. Renombra el archivo a `eMule.tmpl`.
 5. Habilita el servidor web en las Preferencias de eMule.
 6. Establece la ruta de la plantilla en el _Template_ de la Web interface:
+
 ![alt text](image-3.png)
+
 7. Aplica los cambios (_Aplicar_).
 
 #### Recomendaciones
@@ -100,31 +94,27 @@ Mobile Mule was originally designed for older phones capable of running Java (J2
 
 In 2026, it is considered obsolete; it is much more efficient to use the Web Interface from a mobile browser. That is why I decided to create these templates.
 
-Files and Purpose
-📄 eMulev50_0a.tmpl
+## File and Purpose
 
-A template based on the classic eMuleXP design.
-
-- Style: Maintains the traditional and familiar aesthetic of classic eMule versions (v0.50a).
-- Purpose: Serves as a backup option to ensure full compatibility with official (older) eMule installations.
-
-📄 eMulev0_70b.tmpl
-
-The modernized version designed for eMule v0.70b Community Edition.
+### 📄 `Modern_eMule.tmpl`
 
 - Technologies: Uses Tailwind CSS, Google Fonts (Inter and JetBrains Mono), and glassmorphism effects.
 - Features: Fully responsive (adapts to mobiles and tablets), deep dark mode, subtle animations, and an optimized element layout for remote management.
 - Purpose: To provide a cutting-edge interface for users of the latest community version.
 
+![alt text](image-5.png)
+
 ## Setup
 
 1. Locate your eMule installation folder (usually in `C:\Program Files\eMule\config` or wherever the web server files are stored).
 2. Create a backup of your current `eMule.tmpl` file (e.g., `eMule_backup.tmpl`).
-3. Copy one of the files from this repo (e.g., `eMulev0_70b.tmpl`) into that folder.
-4. Rename the chosen file to `eMule.tmpl`.
+3. Copy the file from this repo (e.g., `Modern_eMule.tmpl`) into that folder.
+4. Rename the file to `eMule.tmpl`.
 5. Enable the Web Server in eMule Preferences.
 6. Set the template path in the Template section of the Web Interface:
+
 ![alt text](image-4.png)
+
 7. Apply the changes.
 
 Recommendations
