@@ -28,6 +28,14 @@ En 2026 se considera obsoleta; **es mucho más eficiente usar la Web Interface d
 
 ![alt text](image-5.png)
 
+![alt text](image-6.png)
+
+![alt text](image-7.png)
+
+![alt text](image-8.png)
+
+![alt text](image-9.png)
+
 ## Configuración
 
 1. Localiza la carpeta de instalación de tu eMule (normalmente en `C:\Program Files\eMule\config` o donde se guarden los archivos del servidor web).
