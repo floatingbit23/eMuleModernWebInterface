@@ -1,0 +1,1026 @@
+<-- ################################################################# -->
+<-- ##             eMule Modern 2026 Tailwind Full Template         ## -->
+<-- ##             v0.70b Community Edition Compatible              ## -->
+<-- ##             https://emule-project.net                        ## -->
+<-- ################################################################# -->
+
+<--TMPL_VERSION-->
+7
+<--TMPL_VERSION_END-->
+
+<-- ################################################################# -->
+<-- ############################ LOGIN ############################## -->
+<-- ################################################################# -->
+
+<--TMPL_LOGIN-->
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-900 overflow-hidden">
+<head>
+    <meta charset="[CharSet]">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[eMuleAppName] [version] - Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .text-glow { text-shadow: 0 0 15px rgba(99, 102, 241, 0.4); }
+    </style>
+</head>
+<body class="h-full flex items-center justify-center p-6 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-900 via-slate-900 to-slate-950" onload="document.login.p.focus();">
+    <div class="max-w-md w-full glass p-10 rounded-[3rem] shadow-[0_35px_60px_-15px_rgba(0,0,0,0.5)] space-y-8 animate-in fade-in zoom-in duration-700">
+        <div class="text-center">
+            <div class="inline-flex p-5 rounded-3xl bg-indigo-500/10 mb-6 group transition-all duration-500 hover:bg-indigo-500/20">
+                <img src="logo.jpg" alt="eMule" class="h-16 w-auto drop-shadow-2xl grayscale hover:grayscale-0 transition-all">
+            </div>
+            <h2 class="text-4xl font-extrabold text-white tracking-tight text-glow">[WebControl]</h2>
+            <p class="text-slate-400 mt-3 font-medium tracking-wide">[Login]</p>
+        </div>
+        
+        <form action="" method="POST" name="login" class="space-y-6">
+            <input type="hidden" name="w" value="password">
+            <div class="relative group">
+                <label for="p" class="block text-xs font-bold text-slate-500 uppercase tracking-[0.2em] ml-2 mb-2 group-focus-within:text-indigo-400 transition-colors uppercase">[EnterPassword]</label>
+                <input type="password" name="p" id="p" maxlength="12" 
+                    class="w-full px-6 py-4 rounded-2xl bg-slate-800/40 border-2 border-slate-700/50 text-white placeholder-slate-600 focus:outline-none focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-center tracking-[0.5em]"
+                    placeholder="••••••••">
+            </div>
+            <button type="submit" 
+                class="w-full py-4 px-6 bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 text-white font-bold rounded-2xl shadow-xl shadow-indigo-500/20 transform transition-all active:scale-[0.97] hover:shadow-indigo-500/40">
+                [LoginNow]
+            </button>
+        </form>
+        
+        <div class="text-center text-[10px] text-slate-600 font-mono uppercase tracking-[0.3em] pt-6 border-t border-white/5">
+            [eMuleAppName] <span class="text-indigo-500/50">[version]</span>
+        </div>
+    </div>
+</body>
+</html>
+<--TMPL_LOGIN_END-->
+
+<-- ################################################################# -->
+<-- ######################### MAIN SITE ############################# -->
+<-- ################################################################# -->
+
+<--TMPL_HEADER-->
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-950 text-slate-200">
+<head>
+    <meta charset="[CharSet]">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="PRAGMA" content="NO-CACHE">
+    <link rel="icon" href="favicon.ico">
+    <title>[eMuleAppName] [version] - [WebControl]</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        .glass-nav { background: rgba(8, 12, 24, 0.85); backdrop-filter: blur(24px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .card { background: rgba(30, 41, 59, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); }
+        .progress-glow { box-shadow: 0 0 15px rgba(99, 102, 241, 0.5); }
+        @media (max-width: 1024px) { .hide-tablet { display: none; } }
+        /* Tooltip simple override */
+        #tipDiv { background: #1e293b !important; border: 1px solid #4f46e5 !important; border-radius: 12px; padding: 12px; font-family: 'Inter', sans-serif; color: white; font-size: 11px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.5); z-index: 10000; visibility: hidden; position: absolute; }
+    </style>
+    [StyleSheet]
+    <script>
+        // Compatibility variables
+        var removeconfirm;
+        function ToClipboard(txt) { navigator.clipboard.writeText(txt).then(() => alert('Link copiado!')); }
+        function ShowHide(id) { 
+            const el = document.getElementById(id); 
+            if(el) el.classList.toggle('hidden'); 
+        }
+        function delayhidemenu() {} 
+        function showmenu(e, content) { }
+
+        // Legacy scripts restoration
+        function downmenu(event,admin,finfo,ed2k,downstate,isgetflc,fname,session,filehash,commentinfo,downloadable) {
+            // Context menu logic
+        }
+        function searchmenu(event,ed2k) {
+            // Search result context menu
+        }
+
+        var timeout = [RefreshVal];
+        var timeoutID;
+        function SetTimer() { if (timeout != 0) timeoutID = setTimeout(() => location.href = "?ses=[Session]&w=[wCommand]", timeout); }
+        function ToggleTimer() {
+            if (timeoutID) { clearTimeout(timeoutID); timeoutID = null; document.getElementById('ImgToggleTimer').src = 'l_timer_off.gif'; }
+            else { SetTimer(); document.getElementById('ImgToggleTimer').src = 'l_timer.gif'; }
+        }
+        window.onload = SetTimer;
+    </script>
+</head>
+<body class="min-h-screen flex flex-col bg-slate-950">
+    <!-- Main Top Navigation -->
+    <nav class="glass-nav sticky top-0 z-50 px-6 py-3">
+        <div class="max-w-[1600px] mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-8">
+                <a href="https://emule-project.net" target="_blank" class="flex items-center space-x-3 group">
+                    <img src="logo.jpg" class="h-10 w-auto group-hover:scale-105 transition-transform drop-shadow-[0_0_8px_rgba(99,102,241,0.5)]">
+                    <div class="flex flex-col">
+                        <span class="text-white font-black tracking-tighter text-xl leading-none">eMule</span>
+                        <span class="text-[9px] font-bold text-indigo-400 uppercase tracking-widest leading-none">[WebControl]</span>
+                    </div>
+                </a>
+                
+                <div class="flex space-x-1 sm:space-x-2 overflow-x-auto thin-scrollbar">
+                    <a href="?ses=[Session]&w=transfer" class="group px-3 py-2 rounded-xl hover:bg-white/5 transition-all flex flex-col items-center min-w-[70px]">
+                        <img src="h_transfer.gif" class="h-6 mb-1 opacity-60 group-hover:opacity-100 group-hover:scale-110 transition-all">
+                        <span class="text-[9px] font-bold text-slate-400 group-hover:text-white uppercase tracking-tighter">[Transfer]</span>
+                    </a>
+                    <a href="?ses=[Session]&w=kad" class="group px-3 py-2 rounded-xl hover:bg-white/5 transition-all flex flex-col items-center min-w-[70px]">
+                        <img src="h_kad.gif" class="h-6 mb-1 opacity-60 group-hover:opacity-100 transition-all">
+                        <span class="text-[9px] font-bold text-slate-400 group-hover:text-white uppercase tracking-tighter">[Kad]</span>
+                    </a>
+                    <a href="?ses=[Session]&w=server" class="group px-3 py-2 rounded-xl hover:bg-white/5 transition-all flex flex-col items-center min-w-[70px]">
+                        <img src="h_server.gif" class="h-6 mb-1 opacity-60 group-hover:opacity-100 transition-all">
+                        <span class="text-[9px] font-bold text-slate-400 group-hover:text-white uppercase tracking-tighter">[Server]</span>
+                    </a>
+                    <a href="?ses=[Session]&w=search" class="group px-3 py-2 rounded-xl hover:bg-white/5 transition-all flex flex-col items-center min-w-[70px]">
+                        <img src="h_search.gif" class="h-6 mb-1 opacity-60 group-hover:opacity-100 transition-all">
+                        <span class="text-[9px] font-bold text-slate-400 group-hover:text-white uppercase tracking-tighter">[Search]</span>
+                    </a>
+                    <a href="?ses=[Session]&w=shared" class="group px-3 py-2 rounded-xl hover:bg-white/5 transition-all flex flex-col items-center min-w-[70px]">
+                        <img src="h_shared.gif" class="h-6 mb-1 opacity-60 group-hover:opacity-100 transition-all">
+                        <span class="text-[9px] font-bold text-slate-400 group-hover:text-white uppercase tracking-tighter">[Shared]</span>
+                    </a>
+                    <a href="?ses=[Session]&w=stats" class="group px-3 py-2 rounded-xl hover:bg-white/5 transition-all flex flex-col items-center min-w-[70px]">
+                        <img src="h_statistic.gif" class="h-6 mb-1 opacity-60 group-hover:opacity-100 transition-all">
+                        <span class="text-[9px] font-bold text-slate-400 group-hover:text-white uppercase tracking-tighter">[Stats]</span>
+                    </a>
+                    <a href="?ses=[Session]&w=graphs" class="group px-3 py-2 rounded-xl hover:bg-white/5 transition-all flex flex-col items-center min-w-[70px]">
+                        <img src="h_graph.gif" class="h-6 mb-1 opacity-60 group-hover:opacity-100 transition-all">
+                        <span class="text-[9px] font-bold text-slate-400 group-hover:text-white uppercase tracking-tighter">[Graphs]</span>
+                    </a>
+                    <a href="?ses=[Session]&w=options" class="group px-3 py-2 rounded-xl hover:bg-white/5 transition-all flex flex-col items-center min-w-[70px]">
+                        <img src="h_preferences.gif" class="h-6 mb-1 opacity-60 group-hover:opacity-100 transition-all">
+                        <span class="text-[9px] font-bold text-slate-400 group-hover:text-white uppercase tracking-tighter">[Options]</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-6">
+                <div class="hide-tablet flex flex-col text-right">
+                    <span class="text-[9px] text-slate-600 font-bold uppercase tracking-widest">[eMuleAppName]</span>
+                    <span class="text-sm font-black text-indigo-400">[version]</span>
+                </div>
+                <div class="flex items-center bg-slate-900/50 p-1.5 rounded-2xl border border-white/5">
+                    <a href="javascript:ShowHide('ed2k_open')" class="p-3 hover:bg-white/10 rounded-xl transition-all" title="Add ed2k Link">
+                        <img src="l_ed2klink.gif" class="h-5">
+                    </a>
+                    <a href="?ses=[Session]&w=logout" class="p-3 bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white rounded-xl transition-all">
+                        <img src="l_logout.gif" class="h-5">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Global Info Bar -->
+    <div class="bg-slate-900/40 border-b border-white/5 py-4 px-6">
+        <div class="max-w-[1600px] mx-auto flex items-center space-x-12">
+            <!-- Connection Card -->
+            <div class="flex items-center space-x-4 pr-12 border-r border-white/5 group min-w-[280px]">
+                <div class="relative">
+                    <div class="absolute inset-0 bg-indigo-500 rounded-2xl blur opacity-20 group-hover:opacity-40 transition-opacity"></div>
+                    <img src="[ConState].gif" class="relative h-12 w-12 rounded-2xl bg-slate-800 p-2 border border-white/10">
+                </div>
+                <div class="truncate">
+                    <div class="text-[10px] font-black text-slate-500 uppercase tracking-widest">[Connection]</div>
+                    <div class="text-sm font-bold text-white truncate">[ConText]</div>
+                    <div class="text-[10px] text-indigo-400 font-mono">[KadConText]</div>
+                </div>
+            </div>
+
+            <!-- Dashboard Stats Grid -->
+            <div class="flex-1 grid grid-cols-2 md:grid-cols-4 gap-8 items-center">
+                <div class="space-y-2">
+                    <div class="flex justify-between items-end">
+                        <span class="text-[10px] font-black text-slate-500 uppercase tracking-widest">[Down]</span>
+                        <span class="text-xs font-mono font-black text-indigo-400">[CurDownload] <span class="text-slate-600 font-normal">/ [MaxDownload]</span></span>
+                    </div>
+                    <div class="h-2 w-full bg-slate-800 rounded-full overflow-hidden p-[1px]">
+                        <div class="h-full bg-indigo-500 rounded-full progress-glow transition-all duration-1000" style="width: [DownloadValue]%"></div>
+                    </div>
+                </div>
+                
+                <div class="space-y-2">
+                    <div class="flex justify-between items-end">
+                        <span class="text-[10px] font-black text-slate-500 uppercase tracking-widest">[Up]</span>
+                        <span class="text-xs font-mono font-black text-emerald-400">[CurUpload] <span class="text-slate-600 font-normal">/ [MaxUpload]</span></span>
+                    </div>
+                    <div class="h-2 w-full bg-slate-800 rounded-full overflow-hidden p-[1px]">
+                        <div class="h-full bg-emerald-500 rounded-full transition-all duration-1000" style="width: [UploadValue]%"></div>
+                    </div>
+                </div>
+
+                <div class="hide-tablet flex items-center justify-between pl-8 border-l border-white/5">
+                    <div class="flex flex-col">
+                        <span class="text-[10px] font-black text-slate-500 uppercase tracking-widest">[Users]</span>
+                        <span class="text-lg font-black text-white">[CurUsers]</span>
+                    </div>
+                    <div class="flex flex-col text-right">
+                        <span class="text-[10px] font-black text-slate-500 uppercase tracking-widest">Files</span>
+                        <span class="text-lg font-black text-sky-400">[CurFiles]</span>
+                    </div>
+                </div>
+
+                <div class="hide-tablet flex flex-col items-end text-right">
+                    <div class="flex items-center text-slate-400 font-mono text-xs space-x-2">
+                        <img src="l_clock.gif" class="h-3 opacity-50">
+                        <span id="live-clock">--:--:--</span>
+                    </div>
+                    <button onclick="ToggleTimer()" class="mt-1 flex items-center space-x-1 hover:text-indigo-400 transition-colors">
+                        <span class="text-[9px] font-bold uppercase tracking-widest">Refresh</span>
+                        <img id="ImgToggleTimer" src="l_timer.gif" class="h-4">
+                    </button>
+                    <script>
+                        setInterval(() => {
+                            const now = new Date();
+                            document.getElementById('live-clock').innerText = now.getHours() + ':' + (now.getMinutes() < 10 ? '0':'') + now.getMinutes() + ':' + (now.getSeconds() < 10 ? '0':'') + now.getSeconds();
+                        }, 1000);
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden ed2k Panel -->
+    <div id="ed2k_open" class="hidden animate-in slide-in-from-top duration-300">
+        <div class="bg-indigo-600/10 border-b border-indigo-500/20 p-8 backdrop-blur-3xl">
+            <div class="max-w-4xl mx-auto space-y-4">
+                <div class="flex items-center justify-between">
+                    <h4 class="font-black text-white uppercase tracking-tighter flex items-center">
+                        <img src="l_ed2klink.gif" class="h-5 mr-3"> Add ed2k Link or Collection
+                    </h4>
+                    <button onclick="ShowHide('ed2k_open')" class="text-slate-500 hover:text-white transition-colors">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>
+                <form action="/" method="GET" class="space-y-4">
+                    <input type="hidden" name="ses" value="[Session]">
+                    <input type="hidden" name="w" value="transfer">
+                    <textarea name="ed2k" rows="4" class="w-full px-6 py-4 bg-slate-900 border-2 border-slate-700/50 rounded-[2rem] text-sm mono text-indigo-400 focus:border-indigo-500 outline-none transition-all" placeholder="Paste your links here..."></textarea>
+                    <div class="flex items-center space-x-4">
+                        <div class="flex-1">[CATBOXED2K]</div>
+                        <button type="submit" class="px-10 py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-black rounded-2xl shadow-xl shadow-indigo-600/30 transition-all font-bold uppercase tracking-widest">[Start]</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 max-w-[1600px] w-full mx-auto p-8">
+<--TMPL_HEADER_END-->
+
+<-- ######################## STYLE SHEETS ########################### -->
+
+<--TMPL_HEADER_STYLESHEET-->
+<style type="text/css">
+    .thin-scrollbar::-webkit-scrollbar { height: 4px; }
+    .thin-scrollbar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+    .progress-glow { box-shadow: 0 0 10px rgba(99, 102, 241, 0.5); }
+    .card { background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(255, 255, 255, 0.05); }
+    main table tr:hover { background: rgba(99, 102, 241, 0.05); }
+</style>
+<--TMPL_HEADER_STYLESHEET_END-->
+
+<--TMPL_FOOTER-->
+    </main>
+
+    <!-- Global Footer -->
+    <footer class="bg-slate-950 border-t border-white/5 py-4 px-8 mt-auto">
+        <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between items-center opacity-60 hover:opacity-100 transition-opacity">
+            <span class="text-[10px] font-mono uppercase tracking-[0.4em] text-slate-500">
+                [eMuleAppName] Project 2026 • v0.70b Modern Edition
+            </span>
+            <div class="flex space-x-6 mt-4 md:mt-0 text-[10px] font-bold uppercase tracking-widest">
+                <a href="?ses=[Session]&w=myinfo" class="text-slate-500 hover:text-indigo-400 flex items-center"><img src="l_info.gif" class="h-3 mr-2 opacity-40">[MyInfo]</a>
+                <a href="?ses=[Session]&w=log#end" class="text-slate-500 hover:text-indigo-400 flex items-center"><img src="h_log.gif" class="h-3 mr-2 opacity-40">[Log]</a>
+                <a href="?ses=[Session]&w=sinfo#end" class="text-slate-500 hover:text-indigo-400 flex items-center"><img src="h_log.gif" class="h-3 mr-2 opacity-40">[ServerInfo]</a>
+                <a href="?ses=[Session]&w=debuglog#end" class="text-slate-500 hover:text-indigo-400 flex items-center"><img src="h_log.gif" class="h-3 mr-2 opacity-40">[DebugLog]</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
+<--TMPL_FOOTER_END-->
+
+<-- ######################## SERVER LIST ############################ -->
+
+<--TMPL_SERVER_LIST-->
+<div class="space-y-12 animate-in fade-in duration-700">
+    <div class="card rounded-[3rem] p-10 shadow-2xl overflow-hidden relative">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-indigo-600/10 rounded-full blur-3xl -mr-32 -mt-32"></div>
+        [AddServerBox]
+    </div>
+
+    <div class="card rounded-[3rem] overflow-hidden shadow-2xl">
+        <div class="px-8 py-6 bg-slate-900/80 border-b border-white/5 flex items-center justify-between">
+            <h3 class="font-black text-xl flex items-center tracking-tighter uppercase">
+                 <div class="p-2 bg-indigo-500/20 rounded-xl mr-4"><img src="l_server.gif" class="h-5"></div>
+                 [ServerList]
+            </h3>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left">
+                <thead>
+                    <tr class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] bg-slate-900/40 border-b border-white/5">
+                        <th class="px-8 py-5 min-w-[300px]"><a href="?ses=[Session]&w=server&sort=name[SortName]" class="hover:text-indigo-400 transition-colors">Name [ServernameI]</a></th>
+                        <th class="px-6 py-5">Address</th>
+                        <th class="px-4 py-5 text-center">Ping</th>
+                        <th class="px-4 py-5 text-center">Users</th>
+                        <th class="px-4 py-5 text-center">Priority</th>
+                        <th class="px-8 py-5 text-center">&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-white/5">
+                [ServersList]
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<--TMPL_SERVER_LIST_END-->
+
+<--TMPL_SERVER_LINE-->
+<tr class="hover:bg-indigo-600/10 transition-all group">
+    <td class="px-8 py-6">
+        <div class="flex items-center space-x-4">
+            <div class="relative">
+                <img src="is_[ServerType].gif" class="h-10 w-10 p-2 rounded-2xl bg-white/5 group-hover:scale-110 transition-transform">
+                <div class="absolute -top-1 -right-1 h-3 w-3 rounded-full border-2 border-slate-900 [ServerState] == 'high' ? 'bg-green-500' : 'bg-slate-600'"></div>
+            </div>
+            <div class="flex flex-col">
+                <span class="font-black text-white group-hover:text-indigo-400 transition-colors text-lg">[Servername]</span>
+                <span class="text-[10px] text-slate-500 uppercase font-black tracking-widest truncate max-w-xs">[Description]</span>
+            </div>
+        </div>
+    </td>
+    <td class="px-6 py-6 font-mono text-sm text-slate-400">[Address]</td>
+    <td class="px-4 py-6 text-center">
+        <span class="font-black text-sky-400 text-sm">[Ping]</span> <span class="text-[8px] font-bold text-slate-600 uppercase">ms</span>
+    </td>
+    <td class="px-4 py-6 text-center">
+        <div class="flex flex-col">
+            <span class="text-xs font-black text-white font-mono">[Users]</span>
+            <span class="text-[8px] font-black text-slate-600 uppercase">Limit: [Limit]</span>
+        </div>
+    </td>
+    <td class="px-4 py-6 text-center">
+        <span class="inline-flex px-3 py-1 rounded-full text-[9px] font-black uppercase border border-white/5 bg-slate-900 text-slate-400 group-hover:border-indigo-500/30 transition-colors">
+            [Priority]
+        </span>
+    </td>
+    <td class="px-8 py-6 text-center">
+        <div class="flex items-center justify-center space-x-4">
+             <img src="[LastChangedDataset].gif" class="h-4 opacity-30 grayscale invert">
+             <a href="?ses=[Session]&w=server&c=connect&ip=[ip]&port=[port]" class="p-3 bg-indigo-500/10 hover:bg-indigo-500 text-indigo-400 hover:text-white rounded-xl transition-all">
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+             </a>
+        </div>
+    </td>
+</tr>
+<--TMPL_SERVER_LINE_END-->
+
+<-- ####################### ADD SERVER BOX ########################## -->
+
+<--TMPL_ADDSERVERBOX-->
+<script>
+    function searchange1() { document.getElementById('prefs').classList.remove('hidden'); document.getElementById('manual').classList.add('hidden'); document.getElementById('servermeta').classList.add('hidden'); }
+    function searchange2() { document.getElementById('prefs').classList.add('hidden'); document.getElementById('manual').classList.add('hidden'); document.getElementById('servermeta').classList.remove('hidden'); }
+    function searchange3() { document.getElementById('prefs').classList.add('hidden'); document.getElementById('manual').classList.remove('hidden'); document.getElementById('servermeta').classList.add('hidden'); }
+</script>
+<div class="flex flex-col gap-8">
+    <div class="flex space-x-4 border-b border-white/5 pb-4">
+        <button onclick="searchange1()" class="px-4 py-2 rounded-xl bg-indigo-600/10 text-indigo-400 text-[10px] font-black uppercase tracking-widest hover:bg-indigo-600/20 transition-all">[ServerOptions]</button>
+        <button onclick="searchange2()" class="px-4 py-2 rounded-xl text-slate-500 text-[10px] font-black uppercase tracking-widest hover:bg-white/5 transition-all">[UpdateServerMetFromURL]</button>
+        <button onclick="searchange3()" class="px-4 py-2 rounded-xl text-slate-500 text-[10px] font-black uppercase tracking-widest hover:bg-white/5 transition-all">[AddServer]</button>
+    </div>
+
+    <div id="prefs" class="grid grid-cols-2 gap-4">
+         <a href="[URL_Connect]" class="group flex items-center justify-center space-x-3 py-6 rounded-3xl bg-indigo-600 hover:bg-indigo-500 shadow-2xl shadow-indigo-600/30 text-white transition-all transform active:scale-95">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+            <span class="font-black uppercase tracking-widest">[Connect]</span>
+        </a>
+        <a href="[URL_Disconnect]" class="flex items-center justify-center space-x-3 py-6 rounded-3xl bg-slate-800/80 hover:bg-red-500 text-white transition-all transform active:scale-95">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            <span class="font-black uppercase tracking-widest">[Disconnect]</span>
+        </a>
+    </div>
+
+    <div id="manual" class="hidden">
+        <form action="" method="GET" class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+            <input type="hidden" name="ses" value="[Session]"><input type="hidden" name="w" value="server"><input type="hidden" name="c" value="options"><input name="addserver" type="hidden" value="true">
+            <div class="space-y-2">
+                <label class="text-[9px] font-black text-slate-500 uppercase tracking-widest block pl-2">[IP]</label>
+                <input name="serveraddr" type="text" class="w-full px-5 py-3 bg-slate-900 border border-slate-700/50 rounded-2xl text-xs outline-none focus:border-indigo-500 antialiased">
+            </div>
+            <div class="space-y-2">
+                <label class="text-[9px] font-black text-slate-500 uppercase tracking-widest block pl-2">[Port]</label>
+                <input name="serverport" type="text" class="w-full px-5 py-3 bg-slate-900 border border-slate-700/50 rounded-2xl text-xs outline-none">
+            </div>
+            <div class="space-y-2">
+                <label class="text-[9px] font-black text-slate-500 uppercase tracking-widest block pl-2">[Name]</label>
+                <input name="servername" type="text" class="w-full px-5 py-3 bg-slate-900 border border-slate-700/50 rounded-2xl text-xs outline-none">
+            </div>
+            <button type="submit" class="h-[46px] bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl text-[10px] font-black uppercase tracking-widest">[Add]</button>
+        </form>
+    </div>
+
+    <div id="servermeta" class="hidden">
+         <form action="" method="GET" class="flex gap-4 items-end">
+            <input type="hidden" name="ses" value="[Session]"><input type="hidden" name="w" value="server"><input type="hidden" name="c" value="options"><input name="updateservermetfromurl" type="hidden" value="true">
+            <div class="flex-1 space-y-2">
+                <label class="text-[9px] font-black text-slate-500 uppercase tracking-widest block pl-2">URL server.met</label>
+                <input name="servermeturl" type="text" placeholder="http://..." class="w-full px-5 py-3 bg-slate-900 border border-slate-700/50 rounded-2xl text-xs outline-none">
+            </div>
+            <button type="submit" class="h-[46px] px-10 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl text-[10px] font-black uppercase tracking-widest">[Apply]</button>
+        </form>
+    </div>
+    
+    <div class="p-4 bg-indigo-500/5 border border-indigo-500/10 rounded-2xl font-mono text-[10px] text-indigo-300/60 uppercase tracking-tighter">[Message]</div>
+</div>
+<--TMPL_ADDSERVERBOX_END-->
+
+<-- ######################### TRANSFER ############################## -->
+
+<--TMPL_TRANSFER_LIST-->
+<div class="space-y-12 animate-in slide-in-from-bottom duration-700">
+    <div class="card rounded-[3rem] overflow-hidden shadow-2xl">
+        <div class="px-10 py-8 bg-slate-900/90 border-b border-white/10 flex flex-wrap items-center justify-between gap-8">
+            <div class="flex items-center">
+                 <div class="p-4 bg-indigo-500/20 rounded-[1.5rem] mr-6"><img src="arrow_down.gif" class="h-6"></div>
+                 <h3 class="font-black text-2xl tracking-tighter uppercase">[DownloadList]</h3>
+            </div>
+            <div class="flex items-center gap-4 bg-slate-950/50 p-2 rounded-3xl border border-white/5">
+                <div class="px-4 py-2 bg-slate-900 rounded-2xl text-[10px] font-black uppercase text-indigo-400 border border-indigo-500/20">[CatBox]</div>
+                <a href="?ses=[Session]&w=transfer&clearcompleted=all" title="Purge Completed" class="p-4 rounded-xl hover:bg-red-500/10 text-red-500 transition-all hover:scale-105">
+                    <img src="m_clearcompleted.gif" class="h-5">
+                </a>
+            </div>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                [DownloadHeader]
+                <tbody class="divide-y divide-white/5">
+                [DownloadFilesList]
+                </tbody>
+                [DownloadFooter]
+            </table>
+        </div>
+    </div>
+
+    <div class="card rounded-[3rem] overflow-hidden shadow-2xl">
+        <div class="px-10 py-8 bg-slate-900/70 border-b border-white/5 flex items-center">
+             <div class="p-4 bg-emerald-500/10 rounded-[1.5rem] mr-6"><img src="arrow_up.gif" class="h-6"></div>
+             <h3 class="font-black text-2xl tracking-tighter uppercase">[UploadList]</h3>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left">
+                [UploadHeader]
+                <tbody class="divide-y divide-white/5">
+                [UploadFilesList]
+                </tbody>
+                [UploadFooter]
+            </table>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        [UploadQueue]
+        [UploadQueueFriend]
+        [UploadQueueBanned]
+    </div>
+</div>
+<--TMPL_TRANSFER_LIST_END-->
+
+<--TMPL_TRANSFER_DOWN_HEADER-->
+<thead>
+    <tr class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] bg-slate-900/50 border-b border-white/5">
+        <th class="px-10 py-6"><a href="?ses=[Session]&w=transfer&sort=dname[SortDName]" class="hover:text-indigo-400">File Description</a></th>
+        <th class="px-6 py-6 text-right">Size</th>
+        <th class="px-6 py-6 min-w-[200px]">Network Status</th>
+        <th class="px-6 py-6 text-right">Bitrate</th>
+        <th class="px-10 py-6 text-center">Settings</th>
+    </tr>
+</thead>
+<--TMPL_TRANSFER_DOWN_HEADER_END-->
+
+<--TMPL_TRANSFER_DOWN_LINE-->
+<tr class="hover:bg-slate-800/40 transition-all group">
+    <td class="px-10 py-8">
+        <div class="flex items-center space-x-5">
+            <div class="relative flex-shrink-0">
+                <img src="filetype_[FileType].gif" class="h-10 w-10 p-2 rounded-2xl bg-white/5 group-hover:scale-110 transition-transform">
+                <img src="t_[DownState].gif" class="absolute -bottom-1 -right-1 h-5 w-5 bg-slate-900 border-2 border-slate-950 rounded-full p-1 drop-shadow-lg cursor-pointer" 
+                    onclick="downmenu(event,'[admin]','[finfo]','[ed2k]','[DownState]','[isgetflc]','[fname]','[session]','[filehash]','[fcomments]','[downloadable]')">
+            </div>
+            <div class="flex flex-col min-w-0">
+                <span class="font-black text-white truncate max-w-sm md:max-w-xl text-lg group-hover:text-indigo-400 transition-colors uppercase tracking-tight">[ShortFileName]</span>
+                <div class="flex items-center space-x-3 mt-1">
+                    <span class="px-2 py-0.5 rounded-md bg-indigo-500/10 text-indigo-400 text-[9px] font-black uppercase tracking-widest border border-indigo-500/10"><a href="#" onclick="showmenu(event,'[SetCatBox]')">[DCategory]</a></span>
+                    <span class="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Seeds: <span class="text-slate-300 font-black">[5]</span></span>
+                </div>
+            </div>
+        </div>
+    </td>
+    <td class="px-6 py-8 text-right">
+        <div class="flex flex-col">
+            <span class="text-sm font-black text-slate-300 font-mono">[2]</span>
+            <span class="text-[10px] font-bold text-slate-600 font-mono uppercase">Rem: [3]</span>
+        </div>
+    </td>
+    <td class="px-6 py-8">
+        <div class="space-y-2">
+            <div class="flex justify-between items-end text-[10px] font-black uppercase">
+                <span class="text-slate-600 tracking-tighter"><a href="#" onMouseover="downpriomenu(event,'[admin]','[session]','[filehash]','[down-priority]','[DownState]')">[PrioVal]</a></span>
+                <span class="text-indigo-400">[DProgress]%</span>
+            </div>
+            <div class="h-3 w-full bg-slate-950 rounded-full overflow-hidden p-[2px] ring-1 ring-white/5">
+                <div class="h-full bg-indigo-600 rounded-full progress-glow transition-all duration-700" style="width: [DProgress]%"></div>
+            </div>
+        </div>
+    </td>
+    <td class="px-6 py-8 text-right font-mono text-lg font-black text-indigo-400 tracking-tighter">[4]</td>
+    <td class="px-10 py-8 text-center"><img src="[LastChangedDataset].gif" class="h-4 grayscale invert opacity-20 inline"></td>
+</tr>
+<--TMPL_TRANSFER_DOWN_LINE_END-->
+
+<--TMPL_TRANSFER_DOWN_FOOTER-->
+<tfoot>
+    <tr class="bg-indigo-600/5 text-[11px] font-black">
+        <td class="px-10 py-6 uppercase text-slate-500 tracking-[0.2em]">[TotalDown] Active Tasks</td>
+        <td class="px-6 py-6 text-right font-mono text-slate-200">[TotalDownSize]</td>
+        <td class="px-6 py-6 text-center text-slate-600 font-mono italic">[TotalDownTransferred] Global IO</td>
+        <td class="px-6 py-6 text-right font-mono text-indigo-400 text-2xl tracking-tighter">[TotalDownSpeed] KB/S</td>
+        <td class="px-10 py-6"></td>
+    </tr>
+</tfoot>
+<--TMPL_TRANSFER_DOWN_FOOTER_END-->
+
+<-- ########################### SEARCH ############################## -->
+
+<--TMPL_SEARCH-->
+<script>
+    function searchTab(tab) {
+        if(tab==1) { document.getElementById('search-form').classList.remove('hidden'); document.getElementById('contentdb-form').classList.add('hidden'); document.getElementById('tab-1').classList.add('bg-indigo-500/20','text-indigo-400'); document.getElementById('tab-2').classList.remove('bg-indigo-500/20','text-indigo-400'); }
+        else { document.getElementById('search-form').classList.add('hidden'); document.getElementById('contentdb-form').classList.remove('hidden'); document.getElementById('tab-2').classList.add('bg-indigo-500/20','text-indigo-400'); document.getElementById('tab-1').classList.remove('bg-indigo-500/20','text-indigo-400'); }
+    }
+</script>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start animate-in fade-in duration-700">
+    <div class="lg:col-span-4 space-y-8 sticky top-32">
+        <div class="card rounded-[3rem] p-10 ring-1 ring-indigo-500/20">
+            <div class="flex space-x-4 mb-8">
+                <button id="tab-1" onclick="searchTab(1)" class="flex-1 py-3 rounded-2xl bg-indigo-500/20 text-indigo-400 text-[10px] font-black uppercase tracking-widest transition-all">[Search]</button>
+                <button id="tab-2" onclick="searchTab(2)" class="flex-1 py-3 rounded-2xl text-slate-500 text-[10px] font-black uppercase tracking-widest hover:bg-white/5 transition-all">ContentDB</button>
+            </div>
+
+            <div id="search-form">
+                <form action="" method="GET" class="space-y-6">
+                    <input type="hidden" name="ses" value="[Session]"><input type="hidden" name="w" value="search">
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest block ml-2">[Name]</label>
+                        <input name="tosearch" type="text" class="w-full px-6 py-4 bg-slate-900 border-2 border-slate-800 rounded-3xl focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all font-bold text-slate-200">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="space-y-2">
+                            <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest block ml-2">[Type]</label>
+                            <select name="type" class="w-full px-4 py-4 bg-slate-900 border-2 border-slate-800 rounded-2xl text-xs font-bold outline-none cursor-pointer">
+                                <option value="">[Any]</option>
+                                <option value="Arc">[Archive]</option><option value="Audio">[Audio]</option><option value="Iso">[CDImage]</option><option value="Doc">[Document]</option><option value="Video">[Video]</option>
+                            </select>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest block ml-2">[METHOD]</label>
+                            <select name="method" class="w-full px-4 py-4 bg-slate-900 border-2 border-slate-800 rounded-2xl text-xs font-bold outline-none">
+                                <option value="server" selected>Server</option><option value="global">Global</option><option value="kademlia">Kad</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="w-full py-6 bg-gradient-to-br from-indigo-600 to-indigo-800 hover:from-indigo-500 hover:to-indigo-700 text-white font-black text-lg rounded-3xl shadow-2xl transition-all active:scale-95 uppercase tracking-widest">[Search]</button>
+                </form>
+            </div>
+
+            <div id="contentdb-form" class="hidden">
+                 <form action="https://contentdb.emule-project.net/search.php" method="GET" target="_blank" class="space-y-6">
+                    <input type="hidden" name="qsource" value="webinterface">
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest block ml-2">Content [Name]</label>
+                        <input name="s" type="text" class="w-full px-6 py-4 bg-slate-900 border-2 border-slate-800 rounded-3xl outline-none font-bold text-slate-200">
+                    </div>
+                    <select name="cat" class="w-full px-4 py-4 bg-slate-900 border-2 border-slate-800 rounded-2xl text-xs font-bold outline-none">
+                        <option value="all">[Any]</option><option value="1">Software</option><option value="2">Music</option><option value="3">Movies</option>
+                    </select>
+                    <button type="submit" class="w-full py-6 bg-slate-800 hover:bg-slate-700 text-indigo-400 font-black rounded-3xl transition-all uppercase tracking-widest">Open ContentDB</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="lg:col-span-8 space-y-12">
+        <div class="card rounded-[3rem] overflow-hidden shadow-2xl">
+            <div class="px-10 py-8 bg-slate-950/50 border-b border-white/5">
+                <h3 class="font-black text-2xl tracking-tighter uppercase mb-1">[Result] Feed</h3>
+                <span class="text-[10px] font-black font-mono text-indigo-400 tracking-widest uppercase">[Message]</span>
+            </div>
+            <form action="/" method="GET">
+                <input type="hidden" name="ses" value="[Session]"><input type="hidden" name="w" value="search">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] bg-slate-900/40">
+                                <th class="px-10 py-6 min-w-[400px]">Node Name</th>
+                                <th class="px-6 py-6 text-center">Size</th>
+                                <th class="px-6 py-6 text-center">Peers</th>
+                                <th class="px-10 py-6 text-center">Queue</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-white/5">
+                        [RESULTLIST]
+                        </tbody>
+                    </table>
+                </div>
+                <div class="p-10 bg-slate-950/40 border-t border-white/5 flex flex-wrap items-center justify-between gap-8">
+                    <div class="flex-1">[CATBOX]</div>
+                    <button type="submit" class="px-14 py-5 bg-indigo-600 hover:bg-indigo-500 text-white font-black text-xl rounded-2xl shadow-2xl transition-all active:scale-95 uppercase tracking-[0.2em]">INITIALIZE [Download]</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<--TMPL_SEARCH_END-->
+
+<--TMPL_SEARCH_RESULT_LINE-->
+<tr class="hover:bg-indigo-600/5 transition-all group" data-sources-icon="l_sources_%s.gif" onmouseover="searchmenu(event,'%s')">
+    <td class="px-10 py-6">
+        <div class="flex items-center space-x-5">
+            <div class="relative">
+                <img src="is_%s.gif" class="h-10 w-10 p-2 rounded-2xl bg-white/5 group-hover:scale-110 transition-transform">
+                <img src="filetype_%s.gif" class="absolute -bottom-1 -right-1 h-5 w-5 bg-slate-950 border border-white/10 rounded-lg p-1 opacity-60 group-hover:opacity-100 transition-opacity">
+            </div>
+            <div class="flex flex-col min-w-0">
+                <span class="text-base font-black text-slate-200 truncate max-w-sm md:max-w-xl group-hover:text-white transition-colors uppercase tracking-tight">%s</span>
+            </div>
+        </div>
+    </td>
+    <td class="px-6 py-6 text-center shadow-inner">
+        <span class="text-xs font-black text-slate-400 font-mono">%s</span>
+    </td>
+    <td class="px-6 py-6 text-center">
+        <div class="inline-flex px-3 py-1 bg-indigo-500/10 text-indigo-400 rounded-full text-[10px] font-black font-mono border border-indigo-500/20 group-hover:bg-indigo-500/20 transition-all" title="HASH: %s">
+            %s 
+        </div>
+    </td>
+    <td class="px-10 py-6 text-center">
+        <input type="checkbox" name="downloads" value="%s" class="w-6 h-6 rounded-xl border-2 border-slate-700 bg-slate-900 text-indigo-600 transition-all cursor-pointer focus:ring-0 group-hover:border-indigo-500/50">
+    </td>
+</tr>
+<--TMPL_SEARCH_RESULT_LINE_END-->
+
+<--TMPL_STATS-->
+<div class="card rounded-[3rem] p-12 shadow-2xl animate-in zoom-in duration-1000">
+    <div class="flex items-center space-x-6 mb-12">
+        <div class="p-5 bg-indigo-500/10 rounded-3xl"><img src="h_statistic.gif" class="h-10"></div>
+        <h3 class="text-3xl font-black text-white uppercase tracking-tighter">Statistics Data Engine</h3>
+    </div>
+    <div class="bg-slate-950/80 rounded-[2.5rem] p-8 font-mono text-xs border border-white/5 selection:bg-indigo-500/30">
+        [Stats]
+    </div>
+</div>
+<--TMPL_STATS_END-->
+
+<--TMPL_LOG-->
+<div class="card rounded-[3rem] p-10 shadow-2xl">
+    <div class="flex items-center justify-between mb-8">
+        <div class="flex items-center space-x-5">
+            <div class="p-4 bg-slate-800 rounded-2xl"><img src="h_log.gif" class="h-8"></div>
+            <h3 class="font-black text-2xl tracking-tighter uppercase text-white">Log Buffer</h3>
+        </div>
+        <form action="" method="GET">
+            <input type="hidden" name="ses" value="[Session]"><input type="hidden" name="w" value="log"><input type="hidden" name="clear" value="yes">
+            <button type="submit" class="px-6 py-3 bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white rounded-xl text-[10px] font-black uppercase tracking-widest transition-all">Flush</button>
+        </form>
+    </div>
+    <div class="bg-black rounded-3xl p-8 font-mono text-xs overflow-auto max-h-[60vh] border border-white/5 leading-relaxed text-slate-400">
+        [Log]
+    </div>
+</div>
+<--TMPL_LOG_END-->
+
+<--TMPL_SERVERINFO-->
+<div class="card rounded-[3rem] p-10 shadow-2xl">
+    <div class="flex items-center justify-between mb-8">
+        <div class="flex items-center space-x-5">
+            <div class="p-4 bg-slate-800 rounded-2xl"><img src="h_log.gif" class="h-8"></div>
+            <h3 class="font-black text-2xl tracking-tighter uppercase text-white">Server Metadata</h3>
+        </div>
+        <form action="" method="GET">
+            <input type="hidden" name="ses" value="[Session]"><input type="hidden" name="w" value="sinfo"><input type="hidden" name="clear" value="yes">
+            <button type="submit" class="px-6 py-3 bg-slate-800 hover:bg-slate-700 text-slate-400 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all">Reset</button>
+        </form>
+    </div>
+    <div class="bg-black rounded-3xl p-8 font-mono text-xs overflow-auto max-h-[60vh] border border-white/5 text-emerald-500">
+        [ServerInfo]
+    </div>
+</div>
+<--TMPL_SERVERINFO_END-->
+
+<--TMPL_DEBUGLOG-->
+<div class="card rounded-[3rem] p-10 shadow-2xl">
+    <div class="flex items-center justify-between mb-8">
+        <div class="flex items-center space-x-5">
+            <div class="p-4 bg-slate-800 rounded-2xl"><img src="h_log.gif" class="h-8"></div>
+            <h3 class="font-black text-2xl tracking-tighter uppercase text-white">Debug Stream</h3>
+        </div>
+    </div>
+    <div class="bg-black rounded-3xl p-8 font-mono text-xs overflow-auto max-h-[60vh] border border-white/5 text-amber-500">
+        [DebugLog]
+    </div>
+</div>
+<--TMPL_DEBUGLOG_END-->
+
+<--TMPL_MYINFO-->
+<div class="card rounded-[3rem] p-10 shadow-2xl">
+    <div class="flex items-center space-x-5 mb-8">
+        <div class="p-4 bg-slate-800 rounded-2xl"><img src="l_info.gif" class="h-8"></div>
+        <h3 class="font-black text-2xl tracking-tighter uppercase text-white">Personal Node Data</h3>
+    </div>
+    <div class="bg-slate-900/50 rounded-3xl p-8 font-mono text-xs border border-white/5 text-slate-300">
+        [MyInfo]
+    </div>
+</div>
+<--TMPL_MYINFO_END-->
+
+<-- ###################### SHARED FILES LIST ######################## -->
+
+<--TMPL_SHARED_LIST-->
+<div class="card rounded-[3rem] overflow-hidden shadow-2xl animate-in fade-in duration-700">
+    <div class="px-10 py-8 bg-slate-900/80 border-b border-white/5 flex items-center justify-between">
+        <h3 class="font-black text-2xl tracking-tighter uppercase flex items-center">
+             <div class="p-4 bg-indigo-500/10 rounded-xl mr-6"><img src="l_shared.gif" class="h-6"></div>
+             [SharedList]
+        </h3>
+        <span class="text-[10px] font-black font-mono text-indigo-400 tracking-widest uppercase">[Message]</span>
+    </div>
+    
+    <div class="overflow-x-auto">
+        <table class="w-full text-left">
+            <thead>
+                <tr class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] bg-slate-900/40 border-b border-white/5">
+                    <th class="px-10 py-5"><a href="?ses=[Session]&w=shared&[SortName]" class="hover:text-indigo-400">File Description</a></th>
+                    <th class="px-6 py-5 text-right"><a href="?ses=[Session]&w=shared&[SortTransferred]" class="hover:text-indigo-400">Transferred</a></th>
+                    <th class="px-4 py-5 text-center"><a href="?ses=[Session]&w=shared&[SortRequests]" class="hover:text-indigo-400">Requests</a></th>
+                    <th class="px-4 py-5 text-center"><a href="?ses=[Session]&w=shared&[SortAccepts]" class="hover:text-indigo-400">Accepted</a></th>
+                    <th class="px-6 py-5 text-right"><a href="?ses=[Session]&w=shared&[SortSize]" class="hover:text-indigo-400">Size</a></th>
+                    <th class="px-4 py-5 text-center"><a href="?ses=[Session]&w=shared&[SortCompletes]" class="hover:text-indigo-400">Cmplt</a></th>
+                    <th class="px-4 py-5 text-center"><a href="?ses=[Session]&w=shared&[SortPriority]" class="hover:text-indigo-400">Prio</a></th>
+                    <th class="px-8 py-5 text-center">&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-white/5">
+            [SharedFilesList]
+            </tbody>
+        </table>
+    </div>
+    <div class="p-10 bg-slate-950/40 border-t border-white/5 flex justify-center">
+        <a href="?ses=[Session]&w=shared&reload=true" class="px-10 py-4 bg-slate-800 hover:bg-indigo-600 text-indigo-400 hover:text-white rounded-2xl text-[10px] font-black tracking-widest uppercase transition-all shadow-xl">[Reload] Database</a>
+    </div>
+</div>
+<--TMPL_SHARED_LIST_END-->
+
+<--TMPL_SHARED_LINE-->
+<tr class="hover:bg-indigo-600/5 transition-all group">
+    <td class="px-10 py-6">
+        <div class="flex items-center space-x-5">
+            <div class="relative">
+                <img src="is_[FileIsPriority].gif" class="h-10 w-10 p-2 rounded-2xl bg-white/5 group-hover:scale-110 transition-transform cursor-pointer" 
+                    onMouseover="sharedmenu(event,'[admin]','[ed2k]','[session]','[hash]','[fname]','[FileState]','[Downloadable]')">
+                <img src="filetype_[FileType].gif" class="absolute -bottom-1 -right-1 h-5 w-5 bg-slate-900 border border-white/10 rounded-lg p-1 opacity-40">
+            </div>
+            <div class="flex flex-col min-w-0">
+                <span class="text-base font-black text-slate-200 truncate max-w-md group-hover:text-white transition-colors uppercase tracking-tight">[ShortFileName]</span>
+                <span class="text-[9px] font-black text-slate-600 font-mono tracking-tighter truncate">ID: [FileHash]</span>
+            </div>
+        </div>
+    </td>
+    <td class="px-6 py-6 text-right font-mono text-xs text-indigo-300">[FileTransferred] <span class="text-slate-600 opacity-50 block text-[9px]">([FileAllTimeTransferred])</span></td>
+    <td class="px-4 py-6 text-center font-mono text-xs text-emerald-400">[FileRequests]</td>
+    <td class="px-4 py-6 text-center font-mono text-xs text-sky-400">[FileAccepts]</td>
+    <td class="px-6 py-6 text-right font-mono text-xs text-slate-300">[FileSize]</td>
+    <td class="px-4 py-6 text-center font-mono text-xs text-amber-500">[Completes]</td>
+    <td class="px-4 py-6 text-center">
+        <a href="#" onMouseover="sharedpriomenu(event,'[admin]','[session]','[hash]','[shared-priority]')" class="inline-flex px-3 py-1 rounded-full text-[9px] font-black uppercase border border-white/5 bg-slate-900 text-slate-400 group-hover:border-indigo-500/30 transition-colors">[Priority]</a>
+    </td>
+    <td class="px-8 py-6 text-center"><img src="[LastChangedDataset].gif" class="h-4 grayscale invert opacity-20 group-hover:opacity-100 transition-opacity"></td>
+</tr>
+<--TMPL_SHARED_LINE_END-->
+
+<-- ########################### GRAPHS ############################## -->
+
+<--TMPL_GRAPHS-->
+<script language="JavaScript">
+function traceGraph(SpeedString,imageURL,MaxSpeed,color) {
+    document.write('<div class="flex items-end h-[150px] w-full gap-[1px] bg-slate-950/30 p-2 rounded-2xl border border-white/5">');
+    var speed = SpeedString.split(",");
+    if(MaxSpeed==0) MaxSpeed = 1;
+    for(i=0;i<speed.length;i++)
+    {
+        speed[i]=new Number(speed[i]);
+        if (speed[i]>MaxSpeed) speed[i]=MaxSpeed;
+        size=Math.round(speed[i]*100/MaxSpeed);
+        document.write('<div class="flex-1 bg-' + color + '-500/40 hover:bg-' + color + '-500 transition-all rounded-t-sm" style="height:' + size + '%" title="' + speed[i] + '"><\/div>');
+    }
+    document.write('<\/div>');
+}
+</script>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div class="card rounded-[3rem] p-8 space-y-6">
+        <h4 class="text-xs font-black text-indigo-400 uppercase tracking-widest flex justify-between items-center">
+            [TxtDownload] <span class="text-[10px] text-slate-500 font-normal">Max: [MaxDownload]</span>
+        </h4>
+        <script>traceGraph("[GraphDownload]","","[MaxDownload]*1024","indigo");</script>
+    </div>
+    <div class="card rounded-[3rem] p-8 space-y-6">
+        <h4 class="text-xs font-black text-emerald-400 uppercase tracking-widest flex justify-between items-center">
+            [TxtUpload] <span class="text-[10px] text-slate-500 font-normal">Max: [MaxUpload]</span>
+        </h4>
+        <script>traceGraph("[GraphUpload]","","[MaxUpload]*1024","emerald");</script>
+    </div>
+    <div class="card rounded-[3rem] p-8 space-y-6">
+        <h4 class="text-xs font-black text-amber-400 uppercase tracking-widest flex justify-between items-center">
+            [TxtConnections] <span class="text-[10px] text-slate-500 font-normal">Max: [MaxConnections]</span>
+        </h4>
+        <script>traceGraph("[GraphConnections]","","[MaxConnections]","amber");</script>
+    </div>
+</div>
+<--TMPL_GRAPHS_END-->
+
+<-- ######################### PREFERENCES ########################### -->
+
+<--TMPL_PREFERENCES-->
+<div class="card rounded-[3rem] p-12 max-w-4xl mx-auto shadow-2xl animate-in zoom-in duration-500">
+    <div class="flex items-center space-x-6 mb-12 border-b border-white/5 pb-8">
+        <div class="p-4 bg-indigo-500/10 rounded-3xl"><img src="h_preferences.gif" class="h-8"></div>
+        <h3 class="text-3xl font-black text-white uppercase tracking-tighter">System Configuration</h3>
+    </div>
+
+    <form action="" method="GET" class="space-y-12">
+        <input type="hidden" name="ses" value="[Session]"><input type="hidden" name="w" value="options"><input type="hidden" name="saveprefs" value="true">
+        
+        <!-- Web UI Settings -->
+        <div class="space-y-6">
+            <h4 class="text-[10px] font-black text-indigo-400 uppercase tracking-[0.3em]">[WebControl]</h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="space-y-4">
+                    <label class="flex items-center group cursor-pointer p-6 bg-slate-900/50 rounded-3xl border border-white/5 hover:border-indigo-500/30 transition-all">
+                        <input type="checkbox" name="gzip" [UseGzipVal] value="ON" class="w-6 h-6 rounded-lg bg-slate-950 border-slate-800 text-indigo-600 focus:ring-0">
+                        <div class="ml-6">
+                            <span class="block text-sm font-black text-white uppercase tracking-wide">[UseGzipForm]</span>
+                            <span class="text-[10px] text-slate-500 font-medium leading-relaxed">[UseGzipComment]</span>
+                        </div>
+                    </label>
+                </div>
+                <div class="space-y-4">
+                    <div class="p-6 bg-slate-900/50 rounded-3xl border border-white/5">
+                        <label class="block text-[10px] font-black text-slate-500 uppercase tracking-widest pl-2 mb-2">[RefreshTimeForm]</label>
+                        <div class="flex items-center gap-4">
+                             <input type="text" name="refresh" class="flex-1 px-5 py-3 bg-slate-950 border border-slate-700/50 rounded-2xl text-xs outline-none focus:border-indigo-500 font-bold text-center" value="[RefreshVal]">
+                             <span class="text-[10px] text-slate-600 font-black">SEC</span>
+                        </div>
+                        <p class="mt-4 text-[10px] text-slate-600 font-medium px-2 leading-relaxed">[RefreshTimeComment]</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BW Settings -->
+        <div class="space-y-6">
+            <h4 class="text-[10px] font-black text-emerald-400 uppercase tracking-[0.3em]">Bandwidth Management</h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="p-8 bg-slate-900/30 rounded-[2.5rem] border border-white/5 space-y-6">
+                    <h5 class="text-[9px] font-black text-slate-500 uppercase tracking-widest">[SpeedCapForm]</h5>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="space-y-2">
+                            <label class="text-[9px] font-bold text-slate-400 pl-2">DOWN [KBS]</label>
+                            <input name="maxcapdown" type="text" class="w-full px-5 py-3 bg-slate-950 border border-slate-800 rounded-2xl text-xs font-mono text-center" value="[MaxCapDownVal]">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[9px] font-bold text-slate-400 pl-2">UP [KBS]</label>
+                            <input name="maxcapup" type="text" class="w-full px-5 py-3 bg-slate-950 border border-slate-800 rounded-2xl text-xs font-mono text-center" value="[MaxCapUpVal]">
+                        </div>
+                    </div>
+                </div>
+                <div class="p-8 bg-slate-900/30 rounded-[2.5rem] border border-white/5 space-y-6">
+                    <h5 class="text-[9px] font-black text-slate-500 uppercase tracking-widest">[SpeedForm]</h5>
+                    <div class="grid grid-cols-2 gap-4">
+                         <div class="space-y-2">
+                            <label class="text-[9px] font-bold text-slate-400 pl-2">LIMIT DOWN</label>
+                            <input name="maxdown" type="text" class="w-full px-5 py-3 bg-slate-950 border border-slate-800 rounded-2xl text-xs font-mono text-center" value="[MaxDownVal]">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[9px] font-bold text-slate-400 pl-2">LIMIT UP</label>
+                            <input name="maxup" type="text" class="w-full px-5 py-3 bg-slate-950 border border-slate-800 rounded-2xl text-xs font-mono text-center" value="[MaxUpVal]">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="w-full py-6 bg-indigo-600 hover:bg-indigo-500 text-white font-black text-xl rounded-3xl shadow-2xl transition-all uppercase tracking-widest">[Apply] Changes</button>
+    </form>
+</div>
+<--TMPL_PREFERENCES_END-->
+
+<-- ############################ KAD  ################################# -->
+
+<--TMPL_KADDLG-->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 animate-in slide-in-from-right duration-700">
+    <div class="card rounded-[3rem] p-10 space-y-8">
+        <h3 class="text-2xl font-black uppercase tracking-tighter flex items-center">
+            <div class="p-4 bg-amber-500/10 rounded-2xl mr-6"><img src="h_kad.gif" class="h-6"></div>
+            Kademlia Network
+        </h3>
+        <div class="p-8 bg-slate-950 rounded-3xl border border-white/5 space-y-4">
+            <div class="flex justify-between items-center border-b border-white/5 pb-4">
+                <span class="text-[10px] font-black text-slate-500 uppercase tracking-widest">[STATUS]</span>
+                <span class="text-sm font-black [KADSTATUS] == 'Firewalled' ? 'text-red-400' : 'text-green-400' underline underline-offset-4">[KADSTATUS]</span>
+            </div>
+            <div class="text-xs font-medium text-slate-400 leading-relaxed">[KADACTION]</div>
+        </div>
+        [BOOTSTRAPLINE]
+    </div>
+
+    <div class="card rounded-[3rem] p-10 space-y-8">
+        <h3 class="text-xl font-black uppercase tracking-[0.2em] text-slate-500 text-center">[KADSTAT]</h3>
+        <div class="grid grid-cols-2 gap-1 px-4 py-8 bg-slate-950 rounded-3xl border border-white/10 font-mono text-[10px] leading-loose">
+            <div class="text-indigo-400/60 uppercase text-right pr-6">[KADSTATSLABELS]</div>
+            <div class="text-slate-200 border-l border-white/5 pl-6">[KADSTATSDATA]</div>
+        </div>
+    </div>
+</div>
+<--TMPL_KADDLG_END-->
+
+<--TMPL_BOOTSTRAPLINE-->
+<div class="space-y-4">
+    <h4 class="text-[10px] font-black text-indigo-400 uppercase tracking-widest mb-4">[BOOTSTRAP]</h4>
+    <form action="" method="GET" class="grid grid-cols-3 gap-4">
+        <input type="hidden" name="ses" value="[Session]"><input type="hidden" name="w" value="kad"><input type="hidden" name="bootstrap" value="kad">
+        <input name="ip" type="text" placeholder="[BS_IP]" class="col-span-1 px-5 py-4 bg-slate-900 border border-slate-700/50 rounded-2xl text-xs outline-none">
+        <input name="port" type="text" placeholder="[BS_PORT]" class="col-span-1 px-5 py-4 bg-slate-900 border border-slate-700/50 rounded-2xl text-xs outline-none">
+        <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all">[BOOTSTRAP]</button>
+    </form>
+</div>
+<--TMPL_BOOTSTRAPLINE_END-->
+
+<-- ########################## Comment List  ######################## -->
+
+<--TMPL_COMMENTLIST-->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="[CharSet]">
+    <title>[COMMENTS]</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>body { font-family: 'Inter', sans-serif; }</style>
+</head>
+<body class="bg-slate-950 min-h-screen p-8 text-slate-200">
+    <div class="max-w-4xl mx-auto card rounded-[3rem] overflow-hidden shadow-2xl">
+        <div class="px-10 py-8 bg-slate-900/90 border-b border-white/10 flex items-center justify-between">
+            <h3 class="font-black text-2xl tracking-tighter uppercase">[COMMENTS]</h3>
+            <a href="javascript:self.close();" class="text-[10px] font-black text-slate-500 hover:text-red-400 uppercase tracking-widest transition-colors">([CLOSE])</a>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left">
+                <thead>
+                    <tr class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] bg-black/40 border-b border-white/5">
+                        <th class="px-8 py-4">[USERNAME]</th>
+                        <th class="px-8 py-4">[FILENAME]</th>
+                        <th class="px-8 py-4">[COMMENT]</th>
+                        <th class="px-8 py-4">[RATING]</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-white/5">
+                    [COMMENTLINES]
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+<--TMPL_COMMENTLIST_END-->
+
+<--TMPL_COMMENTLIST_LINE-->
+<tr class="hover:bg-indigo-500/5 transition-colors">
+    <td class="px-8 py-4 font-bold text-indigo-400">%s</td>
+    <td class="px-8 py-4 text-xs italic text-slate-400">%s</td>
+    <td class="px-8 py-4 text-sm text-slate-200">%s</td>
+    <td class="px-8 py-4 font-black text-emerald-400">%s</td>
+</tr>
+<--TMPL_COMMENTLIST_LINE_END-->
